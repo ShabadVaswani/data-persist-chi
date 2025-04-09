@@ -127,10 +127,9 @@ MLFLow uses two types of data systems: a relational database (Postgresql) for ex
 
 We can use a persistent block storage backend for both types of data storage to make sure that experiment logs and models persist even when the VM instance hosting MLFlow is not running.
 
-
 :::
 
-::: {.cell .markdown},
+::: {.cell .markdown}
 
 We are now going to use Docker Compose to bring up a set of services on the VM instance:
 

@@ -662,7 +662,6 @@ We can use a persistent block storage backend for both types of data storage to 
 
 
 
-
 We are now going to use Docker Compose to bring up a set of services on the VM instance:
 
 * an MLFlow server.
