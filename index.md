@@ -26,7 +26,7 @@ For this experiment, we will provision
 
 When you are ready to begin, you will continue with the next step! To begin this step, open this experiment on Trovi:
 
-* Use this link: [Persistent storage on Chameleon](https://chameleoncloud.org/experiment/share/) on Trovi
+* Use this link: [Persistent storage on Chameleon](https://chameleoncloud.org/experiment/share/a1c68238-81f8-498d-8323-9d6c46cb0a78) on Trovi
 * Then, click "Launch on Chameleon". This will start a new Jupyter server for you, with the experiment materials already in it.
 
 You will see several notebooks inside the "data-persist-chi" directory - look for the one titled `0_intro.ipynb`. Open this notebook and continue there.
