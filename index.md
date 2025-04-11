@@ -750,19 +750,7 @@ s_old.delete()
 
 ```python
 # run in Chameleon Jupyter environment
-s = server.Server(
-    f"node-persist-{username}", 
-    image_name="CC-Ubuntu24.04",
-    flavor_name="m1.large"
-)
-s.submit(idempotent=True)
-```
-
-
-
-```python
-# run in Chameleon Jupyter environment
-s = server.Server(
+s = chi.server.Server(
     f"node-persist-{username}", 
     image_name="CC-Ubuntu24.04",
     flavor_name="m1.large"
