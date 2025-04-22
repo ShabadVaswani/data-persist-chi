@@ -203,7 +203,7 @@ The following cells run in the **Chameleon** Jupyter environment (not in the Jup
 ::: {.cell .code}
 ```python
 # run in Chameleon Jupyter environment
-from chi import context
+from chi import context, server
 import chi
 import os
 
@@ -219,7 +219,7 @@ username = os.getenv('USER') # exp resources will have this suffix
 ```python
 # run in Chameleon Jupyter environment
 # delete the old server instance!
-s_old = chi.server.get_server(f"node-persist-{username}")
+s_old = server.get_server(f"node-persist-{username}")
 s_old.delete()
 ```
 :::
@@ -227,7 +227,7 @@ s_old.delete()
 ::: {.cell .code}
 ```python
 # run in Chameleon Jupyter environment
-s = chi.server.Server(
+s = server.Server(
     f"node-persist-{username}", 
     image_name="CC-Ubuntu24.04",
     flavor_name="m1.large"
