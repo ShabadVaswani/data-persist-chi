@@ -78,11 +78,6 @@ Then, we'll associate a floating IP with the instance:
 s.associate_floating_ip()
 ```
 
-```python
-s.refresh()
-s.check_connectivity()
-```
-
 
 In the output below, make a note of the floating IP that has been assigned to your instance (in the "Addresses" row).
 
@@ -124,6 +119,11 @@ for sg in security_groups:
   nova_server.add_security_group(sg['name'])
 
 print(f"updated security groups: {[group.name for group in nova_server.list_security_group()]}")
+```
+
+```python
+s.refresh()
+s.check_connectivity()
 ```
 
 
