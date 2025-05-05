@@ -21,16 +21,16 @@ services:
         pip install gdown
 
         echo "Resetting dataset directory..."
-        rm -rf Food-11
-        mkdir -p Food-11
-        cd Food-11
+        rm -rf processed_images
+        mkdir -p processed_images
+        cd processed_images
 
         echo "Downloading dataset zip from Google Drive..."
-        gdown --id 1BuKyDvKM-UB8yP_xQHVh2T8TjpWY2c2L -O Food-11.zip
+        gdown --id 1BuKyDvKM-UB8yP_xQHVh2T8TjpWY2c2L -O processed_images.zip
 
         echo "Unzipping dataset..."
-        unzip -q Food-11.zip
-        rm -f Food-11.zip
+        unzip -q processed_images.zip
+        rm -f processed_images.zip
 
         echo "Listing contents of /data after extract stage:"
         ls -l /data
