@@ -21,9 +21,9 @@ services:
         pip install gdown
 
         echo "Resetting dataset directory..."
-        rm -rf processed_images
-        mkdir -p processed_images
-        cd processed_images
+        rm -rf processed
+        mkdir -p processed
+        cd processed
 
         echo "Downloading dataset zip from Google Drive..."
         gdown --id 1BuKyDvKM-UB8yP_xQHVh2T8TjpWY2c2L -O processed_images.zip
