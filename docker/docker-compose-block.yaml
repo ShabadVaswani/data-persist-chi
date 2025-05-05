@@ -84,10 +84,7 @@ services:
         source: /mnt/object
         target: /mnt/processed
         read_only: true
-      - type: bind
-        source: /mnt/object
-        target: /mnt/processed
-        read_only: true
+
     command: >
       bash -c "python3 -m pip install mlflow && start-notebook.sh"
 
