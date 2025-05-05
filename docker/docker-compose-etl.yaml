@@ -1,7 +1,7 @@
 name: processed-etl
 
 volumes:
-  food11:
+  processed:
 
 services:
   extract-data:
@@ -40,7 +40,7 @@ services:
     container_name: etl_load_data
     image: rclone/rclone:latest
     volumes:
-      - food11:/data
+      - processed:/data
       - ~/.config/rclone/rclone.conf:/root/.config/rclone/rclone.conf:ro
     entrypoint: /bin/sh
     command:
@@ -53,7 +53,7 @@ services:
         echo "Cleaning up existing contents of container..."
         rclone delete chi_tacc:$RCLONE_CONTAINER --rmdirs || true
 
-        rclone copy /data/Food-11 chi_tacc:$RCLONE_CONTAINER \
+        rclone copy /data/processed chi_tacc:$RCLONE_CONTAINER \
         --progress \
         --transfers=32 \
         --checkers=16 \
