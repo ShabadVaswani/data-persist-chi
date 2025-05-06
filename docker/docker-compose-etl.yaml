@@ -53,12 +53,17 @@ services:
         echo "Cleaning up existing contents of container..."
         rclone delete chi_tacc:$RCLONE_CONTAINER --rmdirs || true
 
-        rclone copy /data/processed chi_tacc:$RCLONE_CONTAINER \
-        --progress \
-        --transfers=32 \
-        --checkers=16 \
-        --multi-thread-streams=4 \
-        --fast-list
+        rclone copy /data chi_tacc:$RCLONE_CONTAINER \
+          --progress \
+          --transfers=32 \
+          --checkers=16 \
+          --multi-thread-streams=4 \
+          --fast-list \
+          --retries=5 \
+          --low-level-retries=15 \
+          --retry-sleep=20s \
+          --max-retry-sleep=2m
+
 
         echo "Listing directories in container after load stage:"
         rclone lsd chi_tacc:$RCLONE_CONTAINER
