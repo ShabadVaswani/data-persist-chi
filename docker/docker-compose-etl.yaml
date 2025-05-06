@@ -58,7 +58,7 @@ services:
           --transfers=32 \
           --checkers=16 \
           --multi-thread-streams=4 \
-          --retries=5 \
+          --retries=10 \
           --fast-list
 
 
