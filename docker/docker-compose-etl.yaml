@@ -1,3 +1,5 @@
+version: "3.8"
+
 name: processed-etl
 
 volumes:
@@ -17,25 +19,24 @@ services:
       - |
         set -e
 
-        echo "Installing gdown..."
+        echo "Installing required tools..."
+        apt-get update && apt-get install -y unzip
         pip install gdown
 
-        echo "Resetting dataset directory..."
-        rm -rf processed
-        mkdir -p processed
-        cd processed
+        echo "Resetting /data directory..."
+        rm -rf /data/*
+        cd /data
 
         echo "Downloading dataset zip from Google Drive..."
-        gdown --id 1BuKyDvKM-UB8yP_xQHVh2T8TjpWY2c2L -O processed_images.zip
+        gdown --id 1HUuVj-Q5ak2G0UF1fozr1bm2dokh97z -O chexpert.zip
 
         echo "Unzipping dataset..."
-        unzip -q processed_images.zip
-        rm -f processed_images.zip
+        unzip -q chexpert.zip
+        rm -f chexpert.zip
 
         echo "Listing contents of /data after extract stage:"
         ls -l /data
 
-  
   load-data:
     container_name: etl_load_data
     image: rclone/rclone:latest
@@ -50,15 +51,17 @@ services:
           echo "ERROR: RCLONE_CONTAINER is not set"
           exit 1
         fi
+
         echo "Cleaning up existing contents of container..."
         rclone delete chi_tacc:$RCLONE_CONTAINER --rmdirs || true
 
-        rclone copy /data/processed chi_tacc:$RCLONE_CONTAINER \
-        --progress \
-        --transfers=32 \
-        --checkers=16 \
-        --multi-thread-streams=4 \
-        --fast-list
+        echo "Uploading processed data to chi_tacc:$RCLONE_CONTAINER..."
+        rclone copy /data chi_tacc:$RCLONE_CONTAINER \
+          --progress \
+          --transfers=32 \
+          --checkers=16 \
+          --multi-thread-streams=4 \
+          --fast-list
 
         echo "Listing directories in container after load stage:"
         rclone lsd chi_tacc:$RCLONE_CONTAINER
