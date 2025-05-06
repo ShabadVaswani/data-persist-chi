@@ -28,11 +28,11 @@ services:
         cd /data
 
         echo "Downloading dataset zip from Google Drive..."
-        gdown --id 1HUuVj-Q5ak2G0UF1fozr1bm2dokh97z -O chexpert.zip
+        gdown --id 1BuKyDvKM-UB8yP_xQHVh2T8TjpWY2c2L -O processed_images.zip
 
         echo "Unzipping dataset..."
-        unzip -q chexpert.zip
-        rm -f chexpert.zip
+        unzip -q processed_images.zip
+        rm -f processed_images.zip
 
         echo "Listing contents of /data after extract stage:"
         ls -l /data
@@ -61,7 +61,11 @@ services:
           --transfers=32 \
           --checkers=16 \
           --multi-thread-streams=4 \
-          --fast-list
+          --fast-list \
+          --retries=10 \
+          --low-level-retries=15 \
+          --retry-sleep=20s \
+          --max-retry-sleep=2m
 
         echo "Listing directories in container after load stage:"
         rclone lsd chi_tacc:$RCLONE_CONTAINER
