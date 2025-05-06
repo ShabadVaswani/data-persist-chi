@@ -58,11 +58,8 @@ services:
           --transfers=32 \
           --checkers=16 \
           --multi-thread-streams=4 \
-          --fast-list \
           --retries=5 \
-          --low-level-retries=15 \
-          --retry-sleep=20s \
-          --max-retry-sleep=2m
+          --fast-list
 
 
         echo "Listing directories in container after load stage:"
