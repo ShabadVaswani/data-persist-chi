@@ -26,7 +26,7 @@ services:
         cd processed
 
         echo "Downloading dataset zip from Google Drive..."
-        gdown --id 1BuKyDvKM-UB8yP_xQHVh2T8TjpWY2c2L -O processed_images.zip
+        gdown --id 1mkgXrZrUbIc4J4EzMNdzmo9WmopmOo5Z -O processed_images.zip
 
         echo "Unzipping dataset..."
         unzip -q processed_images.zip
@@ -35,7 +35,6 @@ services:
         echo "Listing contents of /data after extract stage:"
         ls -l /data
 
-  
   load-data:
     container_name: etl_load_data
     image: rclone/rclone:latest
