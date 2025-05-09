@@ -58,9 +58,7 @@ services:
           --checkers=16 \
           --multi-thread-streams=4 \
           --retries=10 \
-          --fast-list \
-          --dir-cache-time=72h
-
+          --fast-list 
 
         echo "Listing directories in container after load stage:"
         rclone lsd chi_tacc:$RCLONE_CONTAINER
