@@ -49,9 +49,8 @@ services:
           echo "ERROR: RCLONE_CONTAINER is not set"
           exit 1
         fi
-        echo "Cleaning up existing contents of container..."
-        rclone delete chi_tacc:$RCLONE_CONTAINER --rmdirs || true
 
+        echo "Uploading contents of /data to container without deleting existing files..."
         rclone copy /data chi_tacc:$RCLONE_CONTAINER \
           --progress \
           --transfers=32 \
