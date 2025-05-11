@@ -20,9 +20,9 @@ services:
         echo "Installing gdown..."
         pip install gdown
     
-        echo "Creating new_processed directory..."
-        mkdir -p new_processed
-        cd new_processed
+        echo "Creating csv directory..."
+        mkdir -p csv
+        cd csv 
     
         echo "Downloading dataset zip from Google Drive..."
         gdown --id 1IM-YKiZy1QBmr7t18HkSI20wYJnxJXK8 -O New_Data_project44.zip
