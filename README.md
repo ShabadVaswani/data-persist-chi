@@ -1,17 +1,38 @@
 # Persistent storage on Chameleon
 
-In this tutorial, we will practice using two types of persistent storage options on Chameleon:
+Note that only the docker compose etl was updated in this project to make it convinient for our XRAY Project
 
-* object storage, which you may use to e.g. store large training data sets
-* and block storage, which you may use for persistent storage for services that run on VM instances (e.g. MLFlow, Prometheus, etc.)
+The commmands to follow are outlined below:
 
-To run this experiment, you should have already created an account on Chameleon, and become part of a project. You should also have added your SSH key to the KVM@TACC site and the CHI@TACC site.
 
-Follow along at [Persistent storage on Chameleon](https://teaching-on-testbeds.github.io/data-persist-chi/).
+curl https://rclone.org/install.sh | sudo bash
 
-This tutorial uses: one `m1.large` VM at KVM@TACC, and one floating IP, one 2 GiB block storage volume at KVM@TACC, and one object store container at CHI@TACC.
+run on node-persist
+this line makes sure user_allow_other is un-commented in /etc/fuse.conf
+sudo sed -i '/^#user_allow_other/s/^#//' /etc/fuse.conf
 
----
+mkdir -p ~/.config/rclone
+nano  ~/.config/rclone/rclone.conf
 
-This material is based upon work supported by the National Science Foundation under Grant No. 2230079.
+[chi_tacc]
+type = swift
+user_id = YOUR_USER_ID
+application_credential_id = APP_CRED_ID
+application_credential_secret = APP_CRED_SECRET
+auth = https://chi.tacc.chameleoncloud.org:5000/v3
+region = CHI@TACC
 
+
+rclone lsd chi_tacc:
+
+docker compose -f ~/data-persist-chi/docker/docker-compose-etl.yaml run extract-data
+docker compose -f ~/data-persist-chi/docker/docker-compose-etl.yaml run load-data
+docker volume rm processed-etl_processed
+
+
+run on node-persist
+sudo mkdir -p /mnt/object
+sudo chown -R cc /mnt/object
+sudo chgrp -R cc /mnt/object
+
+rclone mount chi_tacc:object-persist-project44-1 /mnt/object --read-only --allow-other --vfs-cache-mode=full --dir-cache-time=72h --swift-fetch-until-empty-page --daemon
